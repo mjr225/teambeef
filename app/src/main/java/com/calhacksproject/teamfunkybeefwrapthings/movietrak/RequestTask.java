@@ -1,7 +1,14 @@
 package com.calhacksproject.teamfunkybeefwrapthings.movietrak;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -16,6 +23,7 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by nick on 10/4/14.
@@ -24,6 +32,15 @@ public class RequestTask extends AsyncTask<String, String, String>
 {
     // make a request to the specified url
     public JSONObject publicJsonResponse = new JSONObject();
+
+    private ListView listView;
+    private Activity activity;
+
+    public RequestTask(ListView listView, Activity act) {
+        this.listView = listView;
+        this.activity = act;
+    }
+
     @Override
     protected String doInBackground(String... uri)
     {
@@ -86,6 +103,23 @@ public class RequestTask extends AsyncTask<String, String, String>
                 }
                 publicJsonResponse = jsonResponse;
                 // update the UI
+                TextView tv = new TextView(listView.getContext());
+                tv.setText("Hello World");
+
+                TextView tv2 = new TextView(listView.getContext());
+                tv2.setText("Hello Calhacks!");
+
+
+                List<TextView> tvs = new ArrayList<TextView>();
+                tvs.add(tv);
+                tvs.add(tv2);
+                ListAdapter la = new OurAdapter(tvs, activity);
+                listView.setAdapter(la);
+//                listView.getAdapter().getView(0, tv,/**/ null);
+//                listView. deferNotifyDataSetChanged();
+
+//                listView.addView(tv);
+
                 //refreshMoviesList(movieTitles);
                 //ArrayList<String> modeAdapter = new ArrayList<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, movieTitles);
 
