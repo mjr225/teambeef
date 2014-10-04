@@ -25,6 +25,14 @@
         android:layout_above="@+id/imageButton"
         android:layout_alignParentTop="true">
 
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="440dp"
+            android:id="@+id/listView"
+            android:layout_alignTop="@+id/listContainer"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -36,14 +44,5 @@
                 android:id="@+id/savedMovieList" />-->
         </ScrollView>
     </LinearLayout>
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/listView"
-        android:layout_alignTop="@+id/listContainer"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="144dp" />
 
 </RelativeLayout>
