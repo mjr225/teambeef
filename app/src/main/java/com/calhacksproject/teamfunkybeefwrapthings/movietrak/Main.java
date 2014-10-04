@@ -51,9 +51,10 @@ public class Main extends Activity {
         //    moviesList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, movieTitles));
         //}
 
+        //Rotten tomatoes API CODE GOES HERE
+        final String API_KEY = "w78ab8sd5wzx3c2zuh3wakcu";
 
-
-        new RequestTask().execute("http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=" + API_KEY + "&q=" + "" + "&page_limit=" + MOVIE_PAGE_LIMIT);
+        new RequestTask().execute("http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=" + API_KEY + "&q=" + "Batman" + "&page_limit=" + 20);
 
 
         //End of API CODE

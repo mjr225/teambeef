@@ -20,10 +20,11 @@ import java.util.ArrayList;
 /**
  * Created by nick on 10/4/14.
  */
-private class RequestTask extends AsyncTask<String, String, String>
+public class RequestTask extends AsyncTask<String, String, String>
 {
     // make a request to the specified url
     @Override
+
     protected String doInBackground(String... uri)
     {
         HttpClient httpclient = new DefaultHttpClient();
@@ -56,9 +57,10 @@ private class RequestTask extends AsyncTask<String, String, String>
         return responseString;
     }
 
+
     // if the request above completed successfully, this method will
     // automatically run so you can do something with the response
-    @Override
+    //@Override
     protected void onPostExecute(String response)
     {
         super.onPostExecute(response);
@@ -80,11 +82,13 @@ private class RequestTask extends AsyncTask<String, String, String>
                 {
                     JSONObject movie = movies.getJSONObject(i);
                     movieTitles[i] = movie.getString("title");
+                    Log.d("This is the output", movieTitles[i]);
                 }
 
                 // update the UI
                 //refreshMoviesList(movieTitles);
-                ArrayList<String> modeAdapter = new ArrayList<String>(thi, android.R.layout.simple_list_item_1, android.R.id.text1, movieTitles);
+                //ArrayList<String> modeAdapter = new ArrayList<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, movieTitles);
+
             }
             catch (JSONException e)
             {
@@ -97,5 +101,3 @@ private class RequestTask extends AsyncTask<String, String, String>
     //Actual app code begins here
 
 
-//Rotten tomatoes API CODE GOES HERE
-private static final String API_KEY = "w78ab8sd5wzx3c2zuh3wakcu";
