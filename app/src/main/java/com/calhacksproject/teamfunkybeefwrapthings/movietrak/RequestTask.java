@@ -23,8 +23,8 @@ import java.util.ArrayList;
 public class RequestTask extends AsyncTask<String, String, String>
 {
     // make a request to the specified url
+    public JSONObject publicJsonResponse = new JSONObject();
     @Override
-
     protected String doInBackground(String... uri)
     {
         HttpClient httpclient = new DefaultHttpClient();
@@ -84,7 +84,7 @@ public class RequestTask extends AsyncTask<String, String, String>
                     movieTitles[i] = movie.getString("title");
                     Log.d("This is the output", movieTitles[i]);
                 }
-
+                publicJsonResponse = jsonResponse;
                 // update the UI
                 //refreshMoviesList(movieTitles);
                 //ArrayList<String> modeAdapter = new ArrayList<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, movieTitles);

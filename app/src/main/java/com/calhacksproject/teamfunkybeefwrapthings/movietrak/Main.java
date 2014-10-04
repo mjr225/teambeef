@@ -3,12 +3,14 @@ package com.calhacksproject.teamfunkybeefwrapthings.movietrak;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ListActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -29,6 +31,9 @@ import java.util.ArrayList;
 
 
 public class Main extends Activity {
+
+    private ArrayList<String> movieItems = new ArrayList<String>();
+    private ArrayAdapter movieItemsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +65,10 @@ public class Main extends Activity {
         //End of API CODE
 
 
+
         ListView savedMovieList = new ListView(this);
+
+
         //String[] stringArray = new String[] { "Bright Mode", "Normal Mode" };
         String testString = "EMPTY";
 
