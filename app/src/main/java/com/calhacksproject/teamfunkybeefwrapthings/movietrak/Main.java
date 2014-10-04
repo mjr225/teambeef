@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 
@@ -22,18 +23,19 @@ public class Main extends Activity {
     }
 
     private void initializeLists(){
-        Dialog dialog = new Dialog(this);
-        AlertDialog.Builder builder;
-        builder = new AlertDialog.Builder(this);
-        builder.setTitle("Select Color Mode");
+        LinearLayout listContainer;
+        listContainer = (LinearLayout) findViewById((Integer)R.id.listContainer);
 
-        ListView modeList = new ListView(this);
+
+
+        ListView savedMovieList = new ListView(this);
         String[] stringArray = new String[] { "Bright Mode", "Normal Mode" };
         ArrayAdapter<String> modeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, stringArray);
-        modeList.setAdapter(modeAdapter);
+        savedMovieList.setAdapter(modeAdapter);
 
-        builder.setView(modeList);
-        dialog = builder.create();
+
+        // Adds saved movie list to container...
+        listContainer.addView(savedMovieList);
     }
 
     /*
