@@ -54,7 +54,7 @@ public class Main extends Activity {
         //Rotten tomatoes API CODE GOES HERE
         final String API_KEY = "w78ab8sd5wzx3c2zuh3wakcu";
 
-        new RequestTask().execute("http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=" + API_KEY + "&q=" + "Batman" + "&page_limit=" + 20);
+        new RequestTask().execute("http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=" + API_KEY + "&q=" + "Batman" + "&page_limit=" + 5);
 
 
         //End of API CODE
