@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.net.URLEncoder;
 import java.util.ListIterator;
 
 /**
@@ -36,8 +37,10 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
             Toast.makeText(getActivity(), searchString, Toast.LENGTH_SHORT).show();
             final String API_KEY = "w78ab8sd5wzx3c2zuh3wakcu";
 
+            String urlString = URLEncoder.encode(searchString);
+
             new RequestTask( (ListView) getView().findViewById(R.id.listViewSearch), getActivity()).execute("http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=" +
-                    API_KEY + "&q=" + searchString + "&page_limit=" + 15);
+                    API_KEY + "&q=" + urlString0 + "&page_limit=" + 15);
 
 
 
