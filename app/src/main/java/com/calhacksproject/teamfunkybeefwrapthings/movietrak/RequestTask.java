@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -22,6 +23,8 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,13 +47,17 @@ public class RequestTask extends AsyncTask<String, String, String>
     @Override
     protected String doInBackground(String... uri)
     {
+        // BROKEN encode url
+        String url = uri[0];
+
+        Log.d("uri", url);
         HttpClient httpclient = new DefaultHttpClient();
         HttpResponse response;
         String responseString = null;
         try
         {
             // make a HTTP request
-            response = httpclient.execute(new HttpGet(uri[0]));
+            response = httpclient.execute(new HttpGet(url));
             StatusLine statusLine = response.getStatusLine();
             if (statusLine.getStatusCode() == HttpStatus.SC_OK)
             {
@@ -69,6 +76,7 @@ public class RequestTask extends AsyncTask<String, String, String>
         }
         catch (Exception e)
         {
+            System.out.println(e);
             Log.d("Test", "Couldn't make a successful request!");
         }
         return responseString;
@@ -93,28 +101,57 @@ public class RequestTask extends AsyncTask<String, String, String>
                 // fetch the array of movies in the response
                 JSONArray movies = jsonResponse.getJSONArray("movies");
 
+                //list to hold movie names
+                ArrayList<Movie> movieContainer = new ArrayList<Movie>();
                 // add each movie's title to an array
                 String[] movieTitles = new String[movies.length()];
                 for (int i = 0; i < movies.length(); i++)
                 {
                     JSONObject movie = movies.getJSONObject(i);
                     movieTitles[i] = movie.getString("title");
-                    Log.d("This is the output", movieTitles[i]);
+                    Movie m = new Movie();
+                    m.setTitle((String) movie.get("title"));
+                    Object release_dates = movie.get("release_dates");
+                    System.out.println(release_dates);
+                     Class<?> clazz = release_dates.getClass();
+
+                        String dvd = null;
+                        try {
+                            System.out.println("CLAZZ");
+                            System.out.println(clazz);
+                            Field field = clazz.getField("dvd"); //Note, this can throw an exception if the field doesn't exist.m.setDateDVD((String) ((Object) movie.get("release_dates")).get("dvd"));
+
+                           // dvd = field.get(release_dates).toString();
+                            dvd = release_dates.toString().split("\"")[3];
+                        }
+
+
+
+                         catch (NoSuchFieldException e) {
+                            e.printStackTrace();
+                        }
+                        if ( dvd == null) {
+                            m.setDateDVD("None");
+                        }
+                        else {
+                            m.setDateDVD(dvd);
+                        }
+
+
+                    movieContainer.add(m);
+                    Log.d("This is the date", m.getDateDVD());
                 }
                 publicJsonResponse = jsonResponse;
-                // update the UI
-                TextView tv = new TextView(listView.getContext());
-                tv.setText("Hello World");
+                //Log.d("json" , jsonResponse.toString());
 
-                TextView tv2 = new TextView(listView.getContext());
-                tv2.setText("Hello Calhacks!");
+                OurAdapter adapter1 = new OurAdapter(movieContainer, activity );
+
+                listView.setAdapter(adapter1);
 
 
-                List<TextView> tvs = new ArrayList<TextView>();
-                tvs.add(tv);
-                tvs.add(tv2);
-                ListAdapter la = new OurAdapter(tvs, activity);
-                listView.setAdapter(la);
+                listView.invalidate();
+
+
 //                listView.getAdapter().getView(0, tv,/**/ null);
 //                listView. deferNotifyDataSetChanged();
 
@@ -126,6 +163,8 @@ public class RequestTask extends AsyncTask<String, String, String>
             }
             catch (JSONException e)
             {
+                System.out.println(e);
+
                 Log.d("Test", "Failed to parse the JSON response!");
             }
         }

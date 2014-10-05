@@ -9,10 +9,43 @@ import java.util.Date;
  */
 public class Movie {
     //release date
-    private Date releaseDate;
+    private String releaseDateTheater;
+    private String releaseDateDVD;
+
     //title
     private String title;
     //picture
-//    private Image
+    private String imageUrl;
 
+    public void setDateDVD(String newDate){
+        releaseDateDVD = newDate;
+    }
+
+    public void setDateTheater(String newDate){
+        releaseDateDVD = newDate;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDateDVD() {
+        return releaseDateDVD;
+    }
+
+    public String getDateTheater() {
+        return releaseDateTheater;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public String getTitle() {
+        return title;
+    }
 }
