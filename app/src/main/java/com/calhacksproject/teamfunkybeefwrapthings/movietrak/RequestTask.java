@@ -111,35 +111,34 @@ public class RequestTask extends AsyncTask<String, String, String>
                     movieTitles[i] = movie.getString("title");
                     Movie m = new Movie();
                     m.setTitle((String) movie.get("title"));
-                    Object release_dates = movie.get("release_dates");
-                    System.out.println(release_dates);
-                     Class<?> clazz = release_dates.getClass();
 
-                        String dvd = null;
-                        try {
-                            System.out.println("CLAZZ");
-                            System.out.println(clazz);
-                            Field field = clazz.getField("dvd"); //Note, this can throw an exception if the field doesn't exist.m.setDateDVD((String) ((Object) movie.get("release_dates")).get("dvd"));
+//                    Object release_dates = movie.get("release dates");
+//                    Class<?> clazz = release_dates.getClass();
 
-                           // dvd = field.get(release_dates).toString();
-                            dvd = release_dates.toString().split("\"")[3];
+                    String dvd = null;
+                    String theater = null;
+//                    try {
+//                        dvd = (String) ((JSONObject) release_dates).get("dvd");
+//                    } catch (JSONException e) {
+//                    }
+//                    m.setDateDVD(dvd);
+//                    try {
+//                        theater = (String) ((JSONObject) release_dates).get("theater");
+//                    } catch (JSONException e) {
+//                    }
+//                    m.setDateTheater(theater);
+                    m.setImageUrl((String) movie.getJSONObject("posters").get("thumbnail"));
+
+                    if(movie.has("release_dates") == true )
+                        {
+
+                            if(movie.getJSONObject("release_dates").has("theater") == true){
+                                System.out.println(movie.getJSONObject("release_dates").get("theater"));
+                                m.setDateTheater((String) movie.getJSONObject("release_dates").get("theater"));
+                            }
                         }
-
-
-
-                         catch (NoSuchFieldException e) {
-                            e.printStackTrace();
-                        }
-                        if ( dvd == null) {
-                            m.setDateDVD("None");
-                        }
-                        else {
-                            m.setDateDVD(dvd);
-                        }
-
 
                     movieContainer.add(m);
-                    Log.d("This is the date", m.getDateDVD());
                 }
                 publicJsonResponse = jsonResponse;
                 //Log.d("json" , jsonResponse.toString());

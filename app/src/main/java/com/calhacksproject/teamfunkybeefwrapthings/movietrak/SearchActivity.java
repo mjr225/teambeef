@@ -27,6 +27,7 @@ public class SearchActivity extends Activity{
             public void onClick(View view) {
 
                 Intent intent = new Intent(SearchActivity.this, MainActivity.class);
+                //intent.putExtra("title", )
                 startActivity(intent);
             }
         });

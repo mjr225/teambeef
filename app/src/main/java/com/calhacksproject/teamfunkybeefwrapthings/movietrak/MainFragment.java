@@ -25,6 +25,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         ListView lv = (ListView) v.findViewById(R.id.listView1);
 
 
+
         List movieItems = Main.movieItems;
         OurAdapter homeadapter = new OurAdapter(movieItems, this.getActivity());
 

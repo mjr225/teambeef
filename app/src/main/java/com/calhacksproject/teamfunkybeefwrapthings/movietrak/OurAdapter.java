@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 /**
@@ -50,22 +52,29 @@ public class OurAdapter extends BaseAdapter {
 
 
         LinearLayout layout1 = (LinearLayout) this.activity.getLayoutInflater().inflate(R.layout.newsingle, null);
-        layout1.setClickable(true);
-        layout1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), Main.class);
-                intent.putExtra("movieData", m.getTitle() + "%%" + m.getDateTheater());
-                activity.startActivity(intent);
-            }
-        });
+
         TextView title = (TextView) layout1.findViewById(R.id.texttitle);
         TextView date = (TextView) layout1.findViewById(R.id.textdate);
         ImageView image = (ImageView) layout1.findViewById(R.id.moviepicture);
 
+        title.setClickable(true);
+        title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Main.class);
+                intent.putExtra("movie", m);
+                activity.startActivity(intent);
+            }
+        });
         title.setText(m.getTitle());
-        date.setText(m.getDateTheater());
+        String date1 = m.getDateTheater();
+        if (date1 != null) {
+            date.setText(date1);
+        } else {
+            date.setText("Unknown release date");
+        }
 
+        Picasso.with(this.activity).load(m.getImageUrl()).into(image);
 
         //update ui
         layout1.invalidate();

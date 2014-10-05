@@ -40,7 +40,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
             String urlString = URLEncoder.encode(searchString);
 
             new RequestTask( (ListView) getView().findViewById(R.id.listViewSearch), getActivity()).execute("http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=" +
-                    API_KEY + "&q=" + urlString0 + "&page_limit=" + 15);
+                    API_KEY + "&q=" + urlString + "&page_limit=" + 15);
 
 
 

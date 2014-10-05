@@ -38,7 +38,7 @@ import java.util.ArrayList;
 
 public class Main extends FragmentActivity {
 
-    static public ArrayList<String> movieItems = new ArrayList<String>();
+    static public ArrayList<Movie> movieItems = new ArrayList<Movie>();
     private ArrayAdapter movieItemsAdapter;
 
     @Override
@@ -48,7 +48,17 @@ public class Main extends FragmentActivity {
         setContentView(R.layout.mainfragmentholder);
         //initializeLists();
 
+        Intent newIntent = getIntent();
+
+
+        Movie mainMovie = (Movie) newIntent.getSerializableExtra("movie");
+        if(mainMovie != null) {
+            movieItems.add(mainMovie);
+        }
+
+
         Fragment fragment = new MainFragment();
+
         FragmentManager fm = getSupportFragmentManager();
 
         FragmentTransaction transaction = fm.beginTransaction();
@@ -56,18 +66,18 @@ public class Main extends FragmentActivity {
         transaction.commit();
 
     }
-
+/**
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        String movieData = intent.getStringExtra("data");
+       String movieData = intent.getStringExtra("data");
         String title = movieData.split("%%")[0];
-        String theaterDate = movieData.split("%%")[1];
+       String theaterDate = movieData.split("%%")[1];
         movieItems.add(movieData);
         System.out.println(movieData);
 
     }
-
+*/
     int flag = 0;
 
     public void fragmentSwitcher(){
